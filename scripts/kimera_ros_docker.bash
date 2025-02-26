@@ -12,4 +12,4 @@ docker run -it \
     -v ~/sharedWDocker:/home/user \
     kimera_vio_ros
 # Disallow X server connection
-xhost -local:root
+# xhost -local:root
