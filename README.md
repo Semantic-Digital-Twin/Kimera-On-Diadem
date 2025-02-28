@@ -51,3 +51,6 @@ wstool update \
 catkin build kimera_semantics_ros \
 \# Refresh workspace \
 source ~/catkin_ws/devel/setup.bash
+
+# Notes
+Kimera-VIO gives twisted odom; conflicts with the original odom
