@@ -1,5 +1,6 @@
 # Kimera Semantics on custom dataset
-You may either use the docker image or clone this github repo and build the docker image locally
+You may either use the docker image or clone this github repo and build the docker image locally. \
+Please download our datasets from our Google Drive [here](https://drive.google.com/file/d/1Jddcrfw3Ei-o7FJ3xWGHyEFxxTvcLdn2/view?usp=sharing).
 
 ### A) Pull From Docker Hub
 ```bash
@@ -118,6 +119,35 @@ If not playing rosbag and just using one from storage, use
 ```bash
 roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=false rosbag_path:="/datasets/EuRoC/V1_01_easy.bag"
 ```
+
+### Run Kimera LCD module
+You need to tweak the parameters for your use case
+
+#### RPGO
+```bash
+vi /catkin_ws/src/Kimera-RPGO/include/KimeraRPGO/SolverParams.h
+```
+RPGO debug (you could add in your debug statements here)
+```bash
+vi /catkin_ws/src/Kimera-RPGO/Kimera-RPGO/src/RobustSolver.cpp
+```
+#### VIO
+```bash
+vi /catkin_ws/src/Kimera-VIO/src/loopclosure/LoopClosureDetector.cpp
+```
+Similarly modify 
+```
+/catkin_ws
+└── src
+    └── Kimera-VIO
+        └── params
+            └── RealSenseIR
+                ├── LeftCameraParams.yaml
+                ├── RightCameraParams.yaml
+                ├── ImuParams.yaml
+```
+for your use case
+
 
 # Notes
 Kimera-VIO gives twisted odom; conflicts with the original odom
