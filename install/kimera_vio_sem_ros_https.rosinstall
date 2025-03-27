@@ -11,10 +11,6 @@
     uri: https://github.com/MIT-SPARK/kimera_rviz_markers.git
     version: master
 - git:
-    local-name: gtsam
-    uri: https://github.com/borglab/gtsam.git
-    version: develop
-- git:
     local-name: opengv_catkin
     uri: https://github.com/MIT-SPARK/opengv_catkin.git
     version: master
