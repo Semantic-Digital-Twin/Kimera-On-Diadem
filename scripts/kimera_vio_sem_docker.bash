@@ -1,15 +1,12 @@
 #!/bin/bash
 
 # Allow X server connection
-xhost +local:root
-# --rm to remove container after it is stopped
-# docker run -it --rm \
+# xhost +local:root
 docker run -it \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --volume="/home/user/datasets/:/home/user/datasets/" \
-    -v ~/sharedWDocker:/home/user \
-    kimera_vio_ros
+    --volume="/home/art5gpc6/datasets/:/datasets/" \
+    --name kimera_vio_sem kimera_vio_sem_ros
 # Disallow X server connection
 # xhost -local:root
