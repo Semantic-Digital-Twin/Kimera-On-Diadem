@@ -82,5 +82,12 @@ RUN . /opt/ros/noetic/setup.sh && cd /catkin_ws/ \
 
 RUN catkin build
 
+RUN gdown 1Jddcrfw3Ei-o7FJ3xWGHyEFxxTvcLdn2 -O /catkin_ws/src/Kimera-Semantics/kimera_semantics_ros/rviz
+COPY launch/kimera_vio_ros_realsense_IR.launch /catkin_ws/src/Kimera-VIO-ROS/launch/
+COPY launch/kimera_semantics.launch /catkin_ws/src/Kimera-Semantics/kimera_semantics_ros/launch
+COPY scripts/LcdParams.yaml /catkin_ws/src/Kimera-VIO/params/RealSenseIR
+
+RUN catkin build
+
 RUN echo '. /opt/ros/noetic/setup.bash' >> ~/.bashrc \
     && echo '. /catkin_ws/devel/setup.bash' >> ~/.bashrc
