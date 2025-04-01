@@ -21,7 +21,7 @@ You may save this script and execute it the same way you execute the .bash scrip
 
 ### B) Clone repo and build locally
 ```bash
-https://github.com/Semantic-Digital-Twin/Kimera-On-Diadem.git
+git clone https://github.com/Semantic-Digital-Twin/Kimera-VIO-with-Realsense-D435i-Datasets.git
 ```
 Build the docker container
 ```bash
