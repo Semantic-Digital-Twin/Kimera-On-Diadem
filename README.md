@@ -164,6 +164,27 @@ To open a terminal in the container
 sudo docker exec -it <container-name> /bin/bash
 ```
 
+### Converting ROS2 bags to ROS1 bags
+Supposing that you have the ROS2 bags in zipped format, to convert ROS2bag files (.db3) to ROS1bag files (.bag), \
+just unzip them in your datasets directory (in your docker container).
+```bash
+unzip -d </path/to/datasets/destination> </path/to/zipped_rosbag>/vending_mach_to_strider.zip
+unzip -d /datasets/realsense/ /datasets/realsense/strider_to_ARTarena.zip
+```
+Then convert the ROS2 bags to ROS1 bags
+```bash
+rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_34_37/ --dst /home/art5gpc6/datasets/kimera/vending_mach_to_strider.bag
+rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_53_07/ --dst /datasets/realsense/strider_to_ARTarena.bag
+```
+You will find the ROS1 bag file in `/datasets/realsense`
+
+There might be an issue with the camera_info topics. \
+To resolve that, use the convert_camerainfo.py script
+```bash
+python3 /Scripts/convert_camerainfo.py --source_bag </path/to/source/ROS1bag> --destination_bag </path/to/final/ROS1bag>
+python3 /Scripts/convert_camerainfo.py --source_bag /datasets/realsense/strider_to_ARTarena.bag --destination_bag /datasets/realsense/strider_to_ARTarena.bag
+```
+
 ### Install semantics if not in container
 In the container, run the following commands
 ```bash
@@ -193,6 +214,19 @@ OR
 ```bash
 source ~/.bashrc
 ```
+
+# Troubleshooting
+
+#### ROSbag conversion not working
+Ensure that rosbags-converter is installed in your docker container
+```bash
+pip3 install rosbags>=0.9.12
+apt update && apt upgrade
+```
+<!-- Why do we not use the names of the rosbags? -->
+<!-- Because, then we need to change the filename, folder name and also in the metadata file -->
+<!-- rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_34_37/ --dst /datasets/realsense/vending_mach_to_strider.bag -->
+<!-- rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_53_07/ -->
 
 # Acknowledgements
 We have used [MIT SPARK's](https://github.com/MIT-SPARK) [Kimera](https://github.com/MIT-SPARK/Kimera) for our custom dataset. \
