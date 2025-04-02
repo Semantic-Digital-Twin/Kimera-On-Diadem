@@ -4,7 +4,7 @@ Please download our datasets from our Google Drive [here](https://drive.google.c
 
 ### A) Pull From Docker Hub
 ```bash
-[sudo] docker pull aurunima/kimera_vio_sem:v2.1
+[sudo] docker pull aurunima/kimera_vio_sem:v2.2
 ```
 Change the path to point to the folder where your datasets are stored on your local system and run the docker container
 ```bash
@@ -15,7 +15,7 @@ docker run -it \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="/home/<user>/<datasets_folder>/:/datasets/" \
-    --name kimera_vio_sem aurunima/kimera_vio_sem:v2.1
+    --name kimera_vio_sem aurunima/kimera_vio_sem:v2.2
 ```
 You may save this script and execute it the same way you execute the .bash script below.
 
@@ -25,9 +25,11 @@ git clone https://github.com/Semantic-Digital-Twin/Kimera-VIO-with-Realsense-D43
 ```
 Build the docker container
 ```bash
+cd Kimera-VIO-with-Realsense-D435i-Datasets
 sudo docker build [--no-cache] -t kimera_vio_sem_ros [-f <path-to-dockerfile>] .
 ```
-Change the path  ```vi scripts/kimera_vio_sem_docker.bash``` to point to the folder where your datasets are stored on your local system and run the docker container
+Change the path  ```vi scripts/kimera_vio_sem_docker.bash``` to point to the folder where your datasets are stored on your local system and run the docker container. \
+If you are using the docker image, you may also need to change the name of the image in the file from ```kimera_vio_sem_ros``` to ```aurunima/kimera_vio_sem:v<X>.<y>```
 ```bash
 sudo ./scripts/kimera_vio_sem_docker.bash
 ```
@@ -181,7 +183,7 @@ unzip -d /datasets/realsense/ /datasets/realsense/strider_to_ARTarena.zip
 ```
 Then convert the ROS2 bags to ROS1 bags
 ```bash
-rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_34_37/ --dst /home/art5gpc6/datasets/kimera/vending_mach_to_strider.bag
+rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_34_37/ --dst /datasets/realsense/vending_mach_to_strider.bag
 rosbags-convert /datasets/realsense/rosbag2_2025_02_07-14_53_07/ --dst /datasets/realsense/strider_to_ARTarena.bag
 ```
 You will find the ROS1 bag file in `/datasets/realsense`
@@ -190,7 +192,7 @@ There might be an issue with the camera_info topics. \
 To resolve that, use the convert_camerainfo.py script
 ```bash
 python3 /Scripts/convert_camerainfo.py --source_bag </path/to/source/ROS1bag> --destination_bag </path/to/final/ROS1bag>
-python3 /Scripts/convert_camerainfo.py --source_bag /datasets/realsense/strider_to_ARTarena.bag --destination_bag /datasets/realsense/strider_to_ARTarena.bag
+python3 /Scripts/convert_camerainfo.py --source_bag /datasets/realsense/strider_to_ARTarena.bag --destination_bag /datasets/realsense/strider_to_ARTarena_fixed.bag
 ```
 
 ### Install semantics if not in container
