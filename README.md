@@ -120,7 +120,7 @@ If not playing rosbag and just using one from storage, use
 roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=false rosbag_path:="/datasets/EuRoC/V1_01_easy.bag"
 ```
 
-### Run Kimera LCD module
+### Kimera LCD module
 You need to tweak the parameters for your use case
 
 #### RPGO
@@ -150,7 +150,6 @@ for your use case
 
 
 # Notes
-Kimera-VIO gives twisted odom; conflicts with the original odom
 
 ### Docker Peek
 To start a stopped container,
