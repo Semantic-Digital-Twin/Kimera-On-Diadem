@@ -115,12 +115,21 @@ rviz -d $(rospack find kimera_vio_ros)/rviz/kimera_vio_euroc.rviz
 ```bash
 roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=true
 ```
+or if you are using the realsense: 
+```bash
+roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
+```
+
 If not playing rosbag and just using one from storage, use
 ```bash
 roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=false rosbag_path:="/datasets/EuRoC/V1_01_easy.bag"
 ```
 
 ### Kimera LCD module
+To use the loop closure detection module and the RPGO, run the vio launch file with the ```use_lcd:=true``` parameter:
+```bash
+roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
+```
 You need to tweak the parameters for your use case
 
 #### RPGO
