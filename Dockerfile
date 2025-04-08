@@ -82,6 +82,7 @@ RUN gdown 1Jddcrfw3Ei-o7FJ3xWGHyEFxxTvcLdn2 -O /catkin_ws/src/Kimera-Semantics/k
 COPY launch/kimera_vio_ros_realsense_IR.launch /catkin_ws/src/Kimera-VIO-ROS/launch/
 COPY launch/kimera_semantics_custom.launch /catkin_ws/src/Kimera-Semantics/kimera_semantics_ros/launch
 COPY scripts/LcdParams.yaml /catkin_ws/src/Kimera-VIO/params/RealSenseIR
+COPY scripts/kimera_semantics_gt_custom.rviz /catkin_ws/src/Kimera-Semantics/kimera_semantics_ros/rviz
 
 RUN mkdir -p /Scripts
 COPY scripts/convert_cameraInfo.py /Scripts
