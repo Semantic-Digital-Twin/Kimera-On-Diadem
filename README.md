@@ -4,7 +4,7 @@ Please download our datasets from our Google Drive [here](https://drive.google.c
 
 ### A) Pull From Docker Hub
 ```bash
-[sudo] docker pull aurunima/kimera_vio_sem:v2.2
+[sudo] docker pull aurunima/kimera_vio_sem:v2.3
 ```
 Change the path to point to the folder where your datasets are stored on your local system and run the docker container
 ```bash
@@ -15,7 +15,8 @@ docker run -it \
     --env="QT_X11_NO_MITSHM=1" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="/home/<user>/<datasets_folder>/:/datasets/" \
-    --name kimera_vio_sem aurunima/kimera_vio_sem:v2.2
+    --device /dev/dri:/dev/dri \
+    --name kimera_vio_sem aurunima/kimera_vio_sem:v2.3
 ```
 You may save this script and execute it the same way you execute the .bash script below.
 
@@ -70,12 +71,19 @@ roscore
 ```
 **Terminal 2:**
 ```bash
+# demo
 rviz -d $(rospack find kimera_semantics_ros)/rviz/kimera_semantics_gt.rviz
+# custom
+rviz -d $(rospack find kimera_semantics_ros)/rviz/kimera_semantics_gt_custom.rviz
 ```
 **Terminal 3:**
 ```bash
+# demo
 roslaunch kimera_semantics_ros kimera_semantics.launch play_bag:=true
+# custom
+roslaunch kimera_semantics_ros kimera_semantics_custom.launch play_bag:=true
 ```
+**Remember to change the topics, etc., default bag file in the custom launch file according to your dataset.**
 
 ### Run Kimera VIO on EuRoC dataset
 Ensure you have the corresponding .bag file downloaded in your ```/datasets``` folder. \
