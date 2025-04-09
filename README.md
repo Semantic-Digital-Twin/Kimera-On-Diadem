@@ -4,19 +4,25 @@ Please download our datasets from our Google Drive [here](https://drive.google.c
 
 ### A) Pull From Docker Hub
 ```bash
-[sudo] docker pull aurunima/kimera_vio_sem:v2.3
+[sudo] docker pull aurunima/kimera_vio_sem:v3.0
 ```
 Change the path to point to the folder where your datasets are stored on your local system and run the docker container
 ```bash
 #!/bin/bash
 
-docker run -it \
+docker run --memory=8g --memory-swap=8g -it \
+    --privileged \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
+    --device=/dev/bus/usb \
+    -v /dev/bus/usb:/dev/bus/usb \
+    -v /etc/udev/rules.d:/etc/udev/rules.d \
+    -v /lib/udev:/lib/udev \
+    -v /run/udev:/run/udev \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="/home/<user>/<datasets_folder>/:/datasets/" \
     --device /dev/dri:/dev/dri \
-    --name kimera_vio_sem aurunima/kimera_vio_sem:v2.3
+    --name kimera_vio_sem aurunima/kimera_vio_sem:v3.0
 ```
 You may save this script and execute it the same way you execute the .bash script below.
 
@@ -181,6 +187,15 @@ To open a terminal in the container
 ```bash
 sudo docker exec -it <container-name> /bin/bash
 ```
+If you wish for the container to be removed once you exit it, use the `--rm` flag
+```bash
+sudo docker run [...] --rm [...] --name <container_name> <image_name>:<tag>
+```
+Do not forget to commit the changes before exiting if you wish to save the changes you make.
+
+`--memory=8g`: Limits the container’s memory usage to 8 GB. \
+`--memory-swap=8g`: Limits the total memory and swap space usage to 8 GB (prevents the container from swapping too much). \
+`-it`: Runs the container interactively (-i for interactive) and attaches a terminal (-t).
 
 ### Converting ROS2 bags to ROS1 bags
 Supposing that you have the ROS2 bags in zipped format, to convert ROS2bag files (.db3) to ROS1bag files (.bag), \
