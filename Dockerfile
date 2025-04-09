@@ -56,6 +56,8 @@ RUN apt-get update && apt-get install -y \
       ros-${ROS_DISTRO}-sensor-msgs \
       ros-${ROS_DISTRO}-std-msgs \
       ros-${ROS_DISTRO}-rosbag-storage \
+      ros-${ROS_DISTRO}-librealsense2 \
+      ros-${ROS_DISTRO}-realsense2-camera \
       ros-${ROS_DISTRO}-gtsam
 
 RUN python3 -m pip install gdown rosbags typing-extensions
