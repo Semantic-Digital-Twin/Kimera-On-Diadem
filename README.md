@@ -4,7 +4,7 @@ Please download our datasets from our Google Drive [here](https://drive.google.c
 
 ### A) Pull From Docker Hub
 ```bash
-[sudo] docker pull aurunima/kimera_vio_sem:v3.0
+[sudo] docker pull aurunima/kimera_vio_sem:latest
 ```
 Change the path to point to the folder where your datasets are stored on your local system and run the docker container
 ```bash
@@ -22,7 +22,7 @@ docker run --memory=8g --memory-swap=8g -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="/home/<user>/<datasets_folder>/:/datasets/" \
     --device /dev/dri:/dev/dri \
-    --name kimera_vio_sem aurunima/kimera_vio_sem:v3.0
+    --name kimera_vio_sem aurunima/kimera_vio_sem:latest
 ```
 You may save this script and execute it the same way you execute the .bash script below.
 
@@ -38,6 +38,8 @@ sudo docker build [--no-cache] -t kimera_vio_sem_ros [-f <path-to-dockerfile>] .
 Change the path  ```vi scripts/kimera_vio_sem_docker.bash``` to point to the folder where your datasets are stored on your local system and run the docker container. \
 If you are using the docker image, you may also need to change the name of the image in the file from ```kimera_vio_sem_ros``` to ```aurunima/kimera_vio_sem:v<X>.<y>```
 ```bash
+[cd Kimera-VIO-with-Realsense-D435i-Datasets]
+chmod +x scripts/kimera_vio_sem_docker.bash
 sudo ./scripts/kimera_vio_sem_docker.bash
 ```
 Once you are in the container, download the kimera_semantics demo bag
@@ -249,6 +251,16 @@ source ~/.bashrc
 ```
 
 # Troubleshooting
+
+#### Not able to execute script
+If you get this error upon trying to execute a script
+```bash
+sudo: <script-filename>.bash: command not found
+```
+Ensure that you have made it executable
+```bash
+chmod +x <script-filename>.bash
+```
 
 #### ROSbag conversion not working
 Ensure that rosbags-converter is installed in your docker container
