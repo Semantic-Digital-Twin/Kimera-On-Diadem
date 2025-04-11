@@ -1,7 +1,31 @@
+# Contents
+1. [Kimera Semantics on custom dataset](#kimera-semantics-on-custom-dataset)
+   1. [Setup](#setup)
+      1. [Pull From Docker Hub](#a-pull-from-docker-hub)
+      2. [Clone repo and build locally](#b-clone-repo-and-build-locally)
+   2. [Running Kimera VIO Semantics with ROS in docker container](#running-kimera-vio-semantics-with-ros-in-docker-container)
+      1. [Run Kimera VIO Semantics](#run-kimera-vio-semantics)
+      2. [Run Kimera VIO on EuRoC dataset](#run-kimera-vio-on-euroc-dataset)
+      3. [Kimera LCD module](#kimera-lcd-module)
+         1. [RPGO](#rpgo)
+         2. [VIO](#vio)
+2. [Notes](#notes)
+   1. [Docker Peek](#docker-peek)
+   2. [Converting ROS2 bags to ROS1 bags](#converting-ros2-bags-to-ros1-bags)
+   3. [Install semantics if not in container](#install-semantics-if-not-in-container)
+3. [Troubleshooting](#troubleshooting)
+4. [Acknowledgements](#acknowledgements)
+
 # Kimera Semantics on custom dataset
 You may either use the docker image or clone this github repo and build the docker image locally. \
-Please download our datasets from our Google Drive [here](https://drive.google.com/file/d/1Jddcrfw3Ei-o7FJ3xWGHyEFxxTvcLdn2/view?usp=sharing).
+Please download our datasets from our Google Drive:
+- [ground_truth_4.bag](https://drive.google.com/file/d/16pu0glhqrX1xnswjnMnqstqEIOkwyp0_/view?usp=sharing)
+- [ground_truth_6.bag](https://drive.google.com/file/d/1cKDJs9B9hSjD9ZxbOhzEE1h0aWyplCqp/view?usp=sharing)
+- [loop_closures.bag](https://drive.google.com/file/d/12F7ZLgMf913-mRY1b-_LIXHa7uIA2YsY/view?usp=sharing)
+- [strider_to_ARTarena.bag](https://drive.google.com/file/d/1Lr-9MYCM-SkG1wggfkD__S4I2y198DUI/view?usp=sharing)
+- [vending_mach_to_strider.bag](https://drive.google.com/file/d/1EER6T_0gMrjT36P-xyhxtqXh-vl-ygh8/view?usp=sharing)
 
+## Setup
 ### A) Pull From Docker Hub
 ```bash
 [sudo] docker pull aurunima/kimera_vio_sem:latest
@@ -24,7 +48,11 @@ docker run --memory=8g --memory-swap=8g -it \
     --device /dev/dri:/dev/dri \
     --name kimera_vio_sem aurunima/kimera_vio_sem:latest
 ```
-You may save this script and execute it the same way you execute the .bash script below.
+You may save this script (`<script-name>.bash`) and execute it.
+```bash
+chmod +x /path/to/<script-name>.bash
+sudo ./path/to/<script-name>.bash
+```
 
 ### B) Clone repo and build locally
 ```bash
@@ -216,8 +244,8 @@ You will find the ROS1 bag file in `/datasets/realsense`
 There might be an issue with the camera_info topics. \
 To resolve that, use the convert_camerainfo.py script
 ```bash
-python3 /Scripts/convert_camerainfo.py --source_bag </path/to/source/ROS1bag> --destination_bag </path/to/final/ROS1bag>
-python3 /Scripts/convert_camerainfo.py --source_bag /datasets/realsense/strider_to_ARTarena.bag --destination_bag /datasets/realsense/strider_to_ARTarena_fixed.bag
+python3 /Scripts/convert_cameraInfo.py --source_bag </path/to/source/ROS1bag> --destination_bag </path/to/final/ROS1bag>
+python3 /Scripts/convert_cameraInfo.py --source_bag /datasets/realsense/strider_to_ARTarena.bag --destination_bag /datasets/realsense/strider_to_ARTarena_fixed.bag
 ```
 
 ### Install semantics if not in container
