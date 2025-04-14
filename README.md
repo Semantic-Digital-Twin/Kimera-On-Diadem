@@ -95,7 +95,7 @@ To list all the ROS packages that are installed
 rospack list-names
 ```
 
-### Run Kimera VIO Semantics
+### Run Kimera VIO Semantics Demo
 Copy the demo rosbag to kimera_semantics package
 ```bash
 cp /datasets/kimera/kimera_semantics_demo.bag /catkin_ws/src/kimera_semantics_ros/rosbag/
@@ -105,27 +105,45 @@ You will need 3 terminals with ```cd /catkin_ws``` in all of them \
 ```bash
 roscore
 ```
+
 **Terminal 2:**
 ```bash
-# demo
 rviz -d $(rospack find kimera_semantics_ros)/rviz/kimera_semantics_gt.rviz
-# custom
+```
+
+**Terminal 3:**
+```bash
+roslaunch kimera_semantics_ros kimera_semantics.launch play_bag:=true
+```
+
+### Run Kimera VIO Semantics Custom
+
+You will need 5 terminals with ```cd /catkin_ws``` in all of them \
+**Terminal 1:**
+```bash
+roscore
+```
+**Terminal 2:**
+```bash
 rviz -d $(rospack find kimera_semantics_ros)/rviz/kimera_semantics_gt_custom.rviz
 ```
 **Terminal 3:**
 ```bash
-# demo
-roslaunch kimera_semantics_ros kimera_semantics.launch play_bag:=true
-# custom
 roslaunch kimera_semantics_ros kimera_semantics_custom.launch
 ```
 **Terminal 4:**
 ```bash
-# if you are running kimera_semantics_custom launch file with our data, make sure to launch the Kimera-VIO module as well
 roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
 ```
 
-**Remember to change the topics, etc., default bag file in the custom launch file according to your dataset.**
+**Terminal 5:**
+```bash
+rosbag play --pause --clock /path/to/bag/file
+```
+
+**Remember:**
+- **Change the frame_ids in the kimera_semantics_custom.launch file depending on the left_cam_topic (color or infra1).**
+- **Change the topics in the kimera_vio_ros_realsenseIR.launch to match the topics coming from either the bag file or your RealSense camera.**
 
 ### Run Kimera VIO on EuRoC dataset
 Ensure you have the corresponding .bag file downloaded in your ```/datasets``` folder. \
