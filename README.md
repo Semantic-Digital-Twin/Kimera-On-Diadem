@@ -116,7 +116,7 @@ rviz -d $(rospack find kimera_semantics_ros)/rviz/kimera_semantics_gt.rviz
 roslaunch kimera_semantics_ros kimera_semantics.launch play_bag:=true
 ```
 
-### Run Kimera VIO Semantics Custom
+### Run Kimera VIO Semantics on Custom Data
 
 You will need 5 terminals with ```cd /catkin_ws``` in all of them \
 **Terminal 1:**
