@@ -144,6 +144,25 @@ roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true should_
 ```bash
 rosbag play --pause --clock /path/to/bag/file
 ```
+or if you want to perform the reconstruction live from your camera feed (make sure to change the topic names as per the ones coming from the realsense node).
+```bash
+roslaunch realsense2_camera rs_camera.launch \
+   align_depth:=true \
+   unite_imu_method:="linear_interpolation" \
+   enable_gyro:=true \
+   enable_accel:=true \
+   enable_infra1:=true \
+   enable_infra2:=true\
+   infra_fps:=30 \
+   infra_height:=480 \
+   infra_width:=640 \
+   color_fps:=30 \
+   color_height:=480 \
+   color_width:=640 \
+   depth_fps:=30 \
+   depth_height:=480 \
+   depth_width:=640 \
+```
 
 **Remember:**
 - **Change the frame_ids in the kimera_semantics_custom.launch file depending on the left_cam_topic (color or infra1).**
