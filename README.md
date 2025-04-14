@@ -34,6 +34,7 @@ Change the path to point to the folder where your datasets are stored on your lo
 ```bash
 #!/bin/bash
 
+xhost +local:root
 docker run --memory=8g --memory-swap=8g -it \
     --privileged \
     --env="DISPLAY" \
@@ -47,6 +48,7 @@ docker run --memory=8g --memory-swap=8g -it \
     --volume="/home/<user>/<datasets_folder>/:/datasets/" \
     --device /dev/dri:/dev/dri \
     --name kimera_vio_sem aurunima/kimera_vio_sem:latest
+xhost -local:root
 ```
 You may save this script (`<script-name>.bash`) and execute it.
 ```bash
@@ -118,6 +120,8 @@ roslaunch kimera_semantics_ros kimera_semantics.launch play_bag:=true
 
 ### Run Kimera VIO Semantics on Custom Data
 
+To run Kimera Semantics on the data record at ARTGarage, follow the instructions below:
+
 You will need 5 terminals with ```cd /catkin_ws``` in all of them \
 **Terminal 1:**
 ```bash
@@ -133,7 +137,7 @@ roslaunch kimera_semantics_ros kimera_semantics_custom.launch
 ```
 **Terminal 4:**
 ```bash
-roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
+roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true should_use_sim_time:=true
 ```
 
 **Terminal 5:**
@@ -144,6 +148,8 @@ rosbag play --pause --clock /path/to/bag/file
 **Remember:**
 - **Change the frame_ids in the kimera_semantics_custom.launch file depending on the left_cam_topic (color or infra1).**
 - **Change the topics in the kimera_vio_ros_realsenseIR.launch to match the topics coming from either the bag file or your RealSense camera.**
+
+**NOTE: The data recorded at ARTGarage is raw sensor data and does NOT have its own Odometry topic or TF Transforms. Kimera-VIO estimates its own left_cam & right_cam to base_link transforms hence there will be no need to record transforms coming from the RealSense. The only missing transform is the World
 
 ### Run Kimera VIO on EuRoC dataset
 Ensure you have the corresponding .bag file downloaded in your ```/datasets``` folder. \
@@ -213,6 +219,7 @@ Similarly modify
                 ├── LeftCameraParams.yaml
                 ├── RightCameraParams.yaml
                 ├── ImuParams.yaml
+                ├── LcdParams.yaml
 ```
 for your use case
 
