@@ -117,8 +117,14 @@ rviz -d $(rospack find kimera_semantics_ros)/rviz/kimera_semantics_gt_custom.rvi
 # demo
 roslaunch kimera_semantics_ros kimera_semantics.launch play_bag:=true
 # custom
-roslaunch kimera_semantics_ros kimera_semantics_custom.launch play_bag:=true
+roslaunch kimera_semantics_ros kimera_semantics_custom.launch
 ```
+**Terminal 4:**
+```bash
+# if you are running kimera_semantics_custom launch file with our data, make sure to launch the Kimera-VIO module as well
+roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
+```
+
 **Remember to change the topics, etc., default bag file in the custom launch file according to your dataset.**
 
 ### Run Kimera VIO on EuRoC dataset
@@ -130,14 +136,7 @@ gdown <download ID>
 Example
 ```bash
 mkdir /datasets/EuRoC && cd /datasets/EuRoC
-gdown http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_01_easy/V1_01_easy.zip
-unzip -q V1_01_easy.zip [-d /path/to/dir]
-```
-
-Before you run Kimera on EuRoC, you need to yamelize the dataset you are using
-```bash
-cd Kimera-VIO/
-bash ./scripts/euroc/yamelize.bash -p "/datasets/EuRoC/V1_01_easy"
+gdown http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/vicon_room1/V1_01_easy/V1_01_easy.bag
 ```
 
 You will need 4 terminals with ```cd /catkin_ws``` in all of them \
@@ -160,10 +159,6 @@ rviz -d $(rospack find kimera_vio_ros)/rviz/kimera_vio_euroc.rviz
 **Terminal 4:**
 ```bash
 roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=true
-```
-or if you are using the realsense: 
-```bash
-roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
 ```
 
 If not playing rosbag and just using one from storage, use
