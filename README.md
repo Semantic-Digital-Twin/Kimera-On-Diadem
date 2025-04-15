@@ -167,9 +167,9 @@ roslaunch realsense2_camera rs_camera.launch \
 **Remember:**
 - **Change the frame_ids in the kimera_semantics_custom.launch file depending on the left_cam_topic (color or infra1).**
 - **Change the topics in the kimera_vio_ros_realsenseIR.launch to match the topics coming from either the bag file or your RealSense camera.**
-- Modify the parameter ```<arg name="metric_semantic_reconstruction" default="true"/>``` to false if you are NOT performing semantic reconstruction (if you do NOT have semantic segmented images)
+- **Modify the parameter ```<arg name="metric_semantic_reconstruction" default="true"/>``` to false (either in the launch file or during runtime) if you are NOT performing semantic reconstruction i.e, if you do NOT have semantic segmented images**
 
-**NOTE: The data recorded at ARTGarage is raw sensor data and does NOT have its own Odometry topic or TF Transforms. Kimera-VIO estimates its own left_cam & right_cam to base_link transforms hence there will be no need to record transforms coming from the RealSense. The only missing transform is the World
+**NOTE: The data recorded at ARTGarage is raw sensor data and does NOT have its own Odometry topic or TF Transforms. Kimera-VIO estimates its own left_cam & right_cam to base_link transforms hence there will be no need to record transforms coming from the RealSense. The only missing transform is the World**
 
 ### Run Kimera VIO on EuRoC dataset
 Ensure you have the corresponding .bag file downloaded in your ```/datasets``` folder. \
