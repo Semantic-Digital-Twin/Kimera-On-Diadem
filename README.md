@@ -137,7 +137,7 @@ roslaunch kimera_semantics_ros kimera_semantics_custom.launch
 ```
 **Terminal 4:**
 ```bash
-roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true should_use_sim_time:=true
+roslaunch kimera_vio_ros kimera_vio_ros_realsense_IR.launch use_lcd:=true should_use_sim_time:=true
 ```
 
 **Terminal 5:**
@@ -166,7 +166,7 @@ roslaunch realsense2_camera rs_camera.launch \
 
 **Remember:**
 - **Change the frame_ids in the kimera_semantics_custom.launch file depending on the left_cam_topic (color or infra1).**
-- **Change the topics in the kimera_vio_ros_realsenseIR.launch to match the topics coming from either the bag file or your RealSense camera.**
+- **Change the topics in the kimera_vio_ros_realsense_IR.launch to match the topics coming from either the bag file or your RealSense camera.**
 - **Modify the parameter ```<arg name="metric_semantic_reconstruction" default="true"/>``` to false (either in the launch file or during runtime) if you are NOT performing semantic reconstruction i.e, if you do NOT have semantic segmented images**
 
 **NOTE: The data recorded at ARTGarage is raw sensor data and does NOT have its own Odometry topic or TF Transforms. Kimera-VIO estimates its own left_cam & right_cam to base_link transforms hence there will be no need to record transforms coming from the RealSense. The only missing transform is the World**
@@ -213,7 +213,7 @@ roslaunch kimera_vio_ros kimera_vio_ros_euroc.launch online:=false rosbag_path:=
 ### Kimera LCD module
 To use the loop closure detection module and the RPGO, run the vio launch file with the ```use_lcd:=true``` parameter:
 ```bash
-roslaunch kimera_vio_ros kimera_vio_ros_realsenseIR.launch use_lcd:=true
+roslaunch kimera_vio_ros kimera_vio_ros_realsense_IR.launch use_lcd:=true
 ```
 You need to tweak the parameters for your use case
 
